@@ -3,8 +3,9 @@ import './App.css';
 import React from "react"
 
 import ToDo from "./ToDo";
+import AddToDo from './AddToDo';
 
-import {Paper, List} from "@material-ui/core"
+import {Paper, List, Container} from "@material-ui/core"
 
 class App extends React.Component {
   constructor(props){
@@ -25,7 +26,7 @@ class App extends React.Component {
       <Paper style={{margin:16}}>
         <List>
           {this.state.items.map((item, idx) => (
-            <ToDo item={item} id={idx}/>
+            <ToDo item={item} key={idx}/>
           ))}
         </List>
       </Paper>
@@ -33,7 +34,10 @@ class App extends React.Component {
 
     return(
       <div className="App">
-        {display}
+        <Container maxWidth="md">
+          <AddToDo />
+          {display}
+        </Container>
       </div>
     )
   }
