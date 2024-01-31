@@ -11,10 +11,28 @@ class App extends React.Component {
   constructor(props){
     super(props)
     //3개의 객체를 가진 배열을 생성
-    this.state = {items:[ {id:0, title:"react", done:true},
-                          {id:1, title:"vue", done:false}, 
-                          {id:2, title:"angular", done:false}]
-                 }
+    this.state = {items:[]}
+  }
+
+  //화면이 보여질 때 마다 호출되는 수명주기 함수
+  componentDidMount(){
+    //ajax 요청 객체 생성
+    let request = new XMLHttpRequest();
+    //요청 준비
+    request.open('GET', "http://127.0.0.1/todo?userid=adam");
+    //요청
+    request.send('');
+    //응답 처리
+    request.addEventListener('load', () => {
+      //json 데이터 출력
+      //console.log(request.responseText)
+
+      //JSON 문자열을 데이터로 변환
+      let data = JSON.parse(request.responseText);
+      console.log(data)
+      //서버에서 받아온 데이터를 state에 대입해서 화면에 출력
+      this.setState({items:data.list})
+    })
   }
 
   //데이터를 추가하는 함수
